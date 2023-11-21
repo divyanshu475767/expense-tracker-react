@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +36,7 @@ const Signup = () => {
 
     if (response.data.success) {
       alert("welcome , lets login now");
+      navigate('/login');
     } else {
       alert("OOPs , user already exists , please login");
     }
@@ -40,6 +44,8 @@ const Signup = () => {
     setEmail("");
     setPassword("");
     setName("");
+
+
   };
 
   return (
