@@ -16,7 +16,7 @@ function App() {
         {authCtx.isLoggedIn && <Route path="/" element={<Dummy />} />}
 
         <Route path="/updateProfile" element={<ProfileUpdate/>} />
-
+        
       </Routes>
     </Router>
   );
