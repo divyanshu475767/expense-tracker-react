@@ -1,0 +1,29 @@
+/* CSS */
+.expense-item {
+    width: 300px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+  
+  .expense-category {
+    background-color: rgb(181, 181, 104);
+    color: #fff;
+    padding: 12px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 0;
+    font-weight: bold;
+  }
+  
+  .expense-amount {
+    font-size: 16px;
+    margin: 10px 0;
+    font-weight: 900;
+  }
+  
+  .expense-description {
+    margin-bottom: 10px;
+  }
+  

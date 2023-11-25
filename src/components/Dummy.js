@@ -3,7 +3,6 @@ import './Dummy.css';
 import { NavLink } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 import authContext from '../store/auth-context';
-import { useNavigate } from 'react-router-dom';
 
 const Dummy = () => {
 

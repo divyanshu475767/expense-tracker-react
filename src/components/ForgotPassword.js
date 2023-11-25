@@ -22,9 +22,8 @@ const navigate = useNavigate();
           email: email,
         },
       });
-
+     
       alert(response.data);
-      console.log('Email submitted:', email);
       setSubmitted(true);
     }
 

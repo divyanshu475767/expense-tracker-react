@@ -1,15 +1,16 @@
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import Dummy from "./components/Dummy";
 import ProfileUpdate from "./components/UpdateProfile";
 import ForgotPassword from "./components/ForgotPassword";
-import { Navigate } from "react-router-dom";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {Navigate, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import authContext from "./store/auth-context";
 import { useContext } from "react";
+import Home from "./pages/Home";
+import ExpenseProvider from "./store/ExpenseProvider";
 function App() {
   const authCtx = useContext(authContext);
   return (
+    <ExpenseProvider>
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -17,13 +18,15 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
 
         {authCtx.isLoggedIn && <>
-          <Route path="/" element={<Dummy />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/updateProfile" element={<ProfileUpdate/>} />
         </>}
 
         <Route path="/*" element={<Navigate to="/login" />} />
+       
       </Routes>
     </Router>
+    </ExpenseProvider>
   );
 }
 
