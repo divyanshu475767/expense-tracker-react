@@ -1,14 +1,61 @@
-import React, { useState } from "react";
+import React, { useContext, useState , useEffect } from "react";
 import expenseContext from "./expense-context";
+import axios from "axios";
+import authContext from "./auth-context";
+
+
 
 const ExpenseProvider = (props) => {
 
+    const authCtx = useContext(authContext);
     const [expenses , setExpenses] = useState([]);
+    
 
-     const addExpense = (item)=>{
+    useEffect(()=>{
           
+        axios({
+            method: "get",
+            url: "http://localhost:5000/expenses",
+            
+         headers: { Authorization: authCtx.token},
+                
+            
+          })
+          .then(response =>{
+            console.log(response);
+
+            
+          setExpenses(response.data);
+          })
+
+    },[authCtx.token])
+    
+
+     const addExpense = async(item)=>{
+
+        
+        const response = await axios({
+            method: "post",
+            url: "http://localhost:5000/expenses",
+            data: {
+              amount: item.amount,
+              description:item.description,
+              category: item.category,
+            },
+            
+         headers: { Authorization: authCtx.token},
+                
+            
+          });
+
+     const response_item = {
+        ...item,
+        id: response.data.id,
+     }
+
+
         setExpenses((prev)=>{
-            return [item  , ...prev];
+            return [response_item, ...prev];
         })
      }
 

@@ -7,7 +7,7 @@ const ExpenseList = () => {
     const expenseCtx = useContext(expenseContext);
 
     const expenses = expenseCtx.expenses.map(item=>{
-        return <ExpenseItem key={item.id} amount={item.amount} description={item.description} category={item.category}/>
+        return <ExpenseItem key={Math.random()} id={item.id} amount={item.amount} description={item.description} category={item.category}/>
     })
   return (
 
