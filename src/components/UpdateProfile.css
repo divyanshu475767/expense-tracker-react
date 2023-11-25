@@ -1,0 +1,11 @@
+.profile-para{
+    border-bottom: 5px solid black;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    font-size: larger;
+}
+
+.cancel{
+    margin-left: 10px;
+}
