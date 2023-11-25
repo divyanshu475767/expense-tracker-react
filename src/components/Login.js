@@ -4,7 +4,9 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import authContext from "../store/auth-context";
+
 const Login = () => {
+
  const authCtx = useContext(authContext);
   const navigate = useNavigate();
 
@@ -42,6 +44,7 @@ const Login = () => {
     }
   };
 
+  
   return (
     <Container
       fluid
@@ -77,7 +80,7 @@ const Login = () => {
 
             <Row>
               <Col className="text-center">
-                <a href="/forgot-password">Forgot Password?</a>
+                <NavLink to="/forgotpassword"  style={{textDecoration:"none" , fontWeight:"bold"}} >Forgot Password?</NavLink>
               </Col>
             </Row>
           </Form>
@@ -89,7 +92,7 @@ const Login = () => {
           to="/signup"
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <Button
+          <Button 
             className="btn-secondary"
            
             style={{ width: "100%"}}
