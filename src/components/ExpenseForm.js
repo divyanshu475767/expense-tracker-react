@@ -14,6 +14,7 @@ const ExpenseForm = () => {
 
   const token = useSelector(state=>state.auth.token);
 
+  
   const dispatch = useDispatch();
 
   
@@ -22,6 +23,8 @@ const ExpenseForm = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
 
+
+  
 
   const handleMoneyChange = (e) => {
     setMoneySpent(e.target.value);

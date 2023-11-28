@@ -15,6 +15,9 @@ const ExpenseItem = ({amount , description , category , id}) => {
 
    const token = useSelector(state=>state.auth.token)
 
+   const updateHandler = ()=>{
+    dispatch(expenseActions.updateItem({id,amount,description,category}))
+   }
 
     const deleteHandler = async()=>{
 
@@ -37,7 +40,7 @@ const ExpenseItem = ({amount , description , category , id}) => {
         <Card.Text className="expense-amount">${amount}</Card.Text>
         <Card.Text className="expense-description">{category} </Card.Text>
         <Button  variant="outline-danger" onClick={deleteHandler}>Delete</Button>
-        <Button className='bttn' variant="outline-warning">Update</Button>
+        <Button className='bttn' variant="outline-warning" onClick={updateHandler}>Update</Button>
       </Card.Body>
 
     </Card>
