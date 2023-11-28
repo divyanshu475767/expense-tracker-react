@@ -1,18 +1,21 @@
-import React , {useContext} from 'react';
+import React from 'react';
 import './Dummy.css';
 import { NavLink } from "react-router-dom";
 import { Button } from 'react-bootstrap';
-import authContext from '../store/auth-context';
+
+import { authActions } from '../store/auth-slice';
+import { useDispatch } from 'react-redux';
 
 const Dummy = () => {
 
-  const authCtx = useContext(authContext);
+
+   const dispatch = useDispatch();
+
 
 
 
   const logoutHandler = ()=>{
-        authCtx.logout();
-       
+    dispatch(authActions.logout());
   }
   return (
     <div className='dummy-div'>

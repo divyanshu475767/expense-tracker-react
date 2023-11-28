@@ -1,16 +1,27 @@
-import React, { useState  , useContext} from 'react';
-import expenseContext from '../store/expense-context';
+import React, { useState} from 'react';
 
 import { Form, Button, Dropdown } from 'react-bootstrap';
 import './ExpenseForm.css';
+import axios from 'axios';
+
+import { useDispatch , useSelector } from 'react-redux';
+import { expenseActions } from '../store/expense-slice';
+
+
+
 const ExpenseForm = () => {
 
-  const expenseCtx = useContext(expenseContext);
 
+  const token = useSelector(state=>state.auth.token);
+
+  const dispatch = useDispatch();
+
+  
 
   const [moneySpent, setMoneySpent] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
+
 
   const handleMoneyChange = (e) => {
     setMoneySpent(e.target.value);
@@ -24,7 +35,10 @@ const ExpenseForm = () => {
     setCategory(category);
   };
 
-  const submitHandler = (e) => {
+  
+
+  
+  const submitHandler =async (e) => {
     e.preventDefault();
     const item = {
         id:Math.random().toString(),
@@ -32,7 +46,25 @@ const ExpenseForm = () => {
         description:description,
         category:category
     };
-    expenseCtx.addExpense(item);
+
+    const response = await axios({
+      method: "post",
+      url: "http://localhost:5000/expenses",
+      data: {
+        amount: item.amount,
+        description: item.description,
+        category: item.category,
+      },
+
+      headers: { Authorization: token},
+    });
+
+    const response_item = {
+      ...item,
+      id: response.data.id,
+    };
+
+    dispatch(expenseActions.addExpense(response_item))
     setCategory('');
     setDescription('');
     setMoneySpent('');

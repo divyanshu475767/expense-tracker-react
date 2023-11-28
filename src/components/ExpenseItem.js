@@ -1,13 +1,34 @@
-import React , {useContext} from 'react';
+import React  from 'react';
 import { Card , Button } from 'react-bootstrap';
 import './ExpenseItem.css';
-import expenseContext from '../store/expense-context';
+
+import { useSelector  , useDispatch} from 'react-redux';
+import { expenseActions } from '../store/expense-slice';
+
+import axios from 'axios';
 
 const ExpenseItem = ({amount , description , category , id}) => {
-    const expenseCtx = useContext(expenseContext);
 
-    const deleteHandler = ()=>{
-        expenseCtx.onDelete(id);
+    const dispatch = useDispatch();
+
+   const expenses = useSelector(state=>state.expense.expenses);
+
+   const token = useSelector(state=>state.auth.token)
+
+
+    const deleteHandler = async()=>{
+
+      await axios({
+        method: "delete",
+        url: `http://localhost:5000/delete/${id}`,
+  
+        headers: { Authorization: token },
+      });
+  
+      const updatedArray = expenses.filter((expense) => expense.id !== id);
+      console.log(updatedArray);
+
+      dispatch(expenseActions.delete(updatedArray));
     }
   return (
     <Card className="expense-item">

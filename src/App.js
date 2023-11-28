@@ -3,21 +3,25 @@ import Login from "./components/Login";
 import ProfileUpdate from "./components/UpdateProfile";
 import ForgotPassword from "./components/ForgotPassword";
 import {Navigate, BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import authContext from "./store/auth-context";
-import { useContext } from "react";
+
 import Home from "./pages/Home";
-import ExpenseProvider from "./store/ExpenseProvider";
+
+
+import { useSelector } from "react-redux";
+
+
 function App() {
-  const authCtx = useContext(authContext);
+
+  const token = useSelector(state=>state.auth.token)
+
   return (
-    <ExpenseProvider>
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
 
-        {authCtx.isLoggedIn && <>
+        {token && <>
           <Route path="/" element={<Home/>} />
           <Route path="/updateProfile" element={<ProfileUpdate/>} />
         </>}
@@ -26,7 +30,6 @@ function App() {
        
       </Routes>
     </Router>
-    </ExpenseProvider>
   );
 }
 

@@ -1,14 +1,18 @@
-import React, { useState , useContext } from "react";
+import React, { useState } from "react";
 import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import authContext from "../store/auth-context";
+
+import { authActions } from "../store/auth-slice";
+import {  useDispatch } from "react-redux";
 
 const Login = () => {
 
- const authCtx = useContext(authContext);
   const navigate = useNavigate();
+
+  const dispatch =  useDispatch();
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +39,8 @@ const Login = () => {
       });
 
       if (response) {
-         authCtx.login(response.data.id);
+        const token = response.data.id;
+        dispatch(authActions.login(token));
         navigate("/");
 
       }

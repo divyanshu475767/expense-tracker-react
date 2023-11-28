@@ -1,15 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState,  useEffect } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import "./UpdateProfile.css";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import authContext from "../store/auth-context";
+
+import { useSelector } from "react-redux";
 
 const ProfileUpdate = () => {
   const navigate = useNavigate();
-  const authCtx = useContext(authContext);
-  const tokenId = authCtx.token;
+
+  const tokenId = useSelector(state=>state.auth.token)
+
 
   const [fullName, setFullName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
@@ -28,7 +30,7 @@ const ProfileUpdate = () => {
     }
 
     getupdatedProfile();
-  },[]);
+  },[tokenId]);
 
   const handleFullNameChange = (e) => {
     setFullName(e.target.value);
