@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 
 import { Form, Button, Dropdown } from 'react-bootstrap';
 import './ExpenseForm.css';
@@ -14,6 +14,8 @@ const ExpenseForm = () => {
 
   const token = useSelector(state=>state.auth.token);
 
+  const item_update = useSelector(state=>state.expense.itemToUpdate);
+
   
   const dispatch = useDispatch();
 
@@ -23,8 +25,15 @@ const ExpenseForm = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
 
-
-  
+  const [id,setId] = useState(null);
+  useEffect(()=>{
+    if(item_update) {
+      setId(item_update.id);
+      setMoneySpent(item_update.amount);
+      setCategory(item_update.category);
+      setDescription(item_update.description);
+   }
+  },[item_update])
 
   const handleMoneyChange = (e) => {
     setMoneySpent(e.target.value);
@@ -43,13 +52,17 @@ const ExpenseForm = () => {
   
   const submitHandler =async (e) => {
     e.preventDefault();
-    const item = {
+
+    
+  
+    let item = {
         id:Math.random().toString(),
         amount:moneySpent,
         description:description,
         category:category
     };
-
+    
+   
     const response = await axios({
       method: "post",
       url: "http://localhost:5000/expenses",
@@ -62,10 +75,24 @@ const ExpenseForm = () => {
       headers: { Authorization: token},
     });
 
-    const response_item = {
+    let response_item;
+    if(id){
+
+      response_item = {
+        ...item,
+        id: id,
+      };
+    }
+
+    else{
+
+    
+    response_item = {
       ...item,
       id: response.data.id,
     };
+
+  }
 
     dispatch(expenseActions.addExpense(response_item))
     setCategory('');

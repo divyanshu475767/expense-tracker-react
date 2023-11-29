@@ -18,6 +18,7 @@ function App() {
   const currentColor = useSelector(state=>state.theme.color)
   return (
     <div className={currentColor}>
+     <p>learn react</p> 
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
